@@ -1,5 +1,7 @@
 package com.example.examplemod;
 
+import com.example.examplemod.items.ModCreativeModeTabs;
+import com.example.examplemod.items.Moditems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -63,6 +65,12 @@ public class ExampleMod
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModCreativeModeTabs.register(modEventBus);
+
+
+
+        Moditems.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -90,8 +98,10 @@ public class ExampleMod
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_BLOCK_ITEM);
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS)
+            event.accept(Moditems.SAPPHIRE);
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS)
+            event.accept(Moditems.RAW_SAPPHIRE);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
